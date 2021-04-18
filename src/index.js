@@ -1,6 +1,9 @@
 import React, {useState} from 'react'
 import ReactDOM from 'react-dom'
+import { ToastProvider } from 'react-toast-notifications';
 import './App.css'
+import { ToastDemo } from './ToastDemo';
+
 var clicksCounter = 0;
 
 const Square = (props) => {
@@ -98,9 +101,11 @@ const Board = () => {
 
 
 const Game = () => {
+ 
   return(
     <div className="game">
-      Tic-Tac-Toe<br />❌ 🆚 ⭕ 
+      Tic-Tac-Toe <div className="tarek"><ToastProvider><ToastDemo /></ToastProvider></div>
+      <br />❌ 🆚 ⭕ 
       <Board />
       <br />
       <a className="reText" href="./index.js">Reload 🌝</a>
@@ -134,4 +139,3 @@ function calculateWinner(squares)
   }
   return null;
 }
-
