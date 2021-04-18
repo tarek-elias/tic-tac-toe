@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import ReactDOM from 'react-dom'
 import './App.css'
-
+var clicksCounter = 0;
 
 const Square = (props) => {
   
@@ -46,7 +46,7 @@ const Board = () => {
     else{
       setXIsNext(!xIsNext)
     }
-    
+    clicksCounter++;
   }
 
   const aiTurn = (sq) => {
@@ -72,9 +72,15 @@ const Board = () => {
     )
   }
   const winner = calculateWinner(squares)
-  const status = winner ? 
+  var status = winner ? 
   `Winner: ${winner} 😎` :
   `Your turn: ${xIsNext ? 'X' : 'O'}`
+
+  
+  if(clicksCounter === 5 && !winner)
+  {
+    status = `Draw 🤝`
+  }
 
   return(
     <div>
