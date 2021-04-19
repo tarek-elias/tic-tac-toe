@@ -3,13 +3,15 @@ import ReactDOM from 'react-dom'
 import { ToastProvider } from 'react-toast-notifications';
 import './App.css'
 import { ToastDemo } from './ToastDemo';
-
+import {ToWords} from 'to-words'
 var clicksCounter = 0;
 
 const Square = (props) => {
   
   return(
-    <button className="square"
+    <button
+    id={props.squareId}
+    className="square"
     onClick={props.onClickEvent}>
       {props.value}
     </button>
@@ -67,33 +69,46 @@ const Board = () => {
     return randEmptyCell
   }
 
-  const renderSquare = (i) => {
+  const renderSquare = (i, k) => {
     return(
       <Square 
+      squareId={k}
       value={squares[i]}
       onClickEvent={()=> handleClickEvent(i)}/>
     )
   }
   const winner = calculateWinner(squares)
-  var status = winner ? 
+  /*var status = winner ? 
   `Winner: ${winner} 😎` :
-  `Your turn: ${xIsNext ? 'X' : 'O'}`
+  `Your turn: ${xIsNext ? 'X' : 'O'}`*/
+  var status = '';
+  if(winner)
+  {
+    status= `Winner: ${winner} 😎`
+    
+  }
+  else
+  {
+    status =`Your turn: ${xIsNext ? 'X' : 'O'}`
+  }
 
+  
   
   if(clicksCounter === 5 && !winner)
   {
     status = `Draw 🤝`
+    
   }
 
   return(
-    <div>
+    <div className="fullBoard">
       <div className="status">{status}</div>
       <div className="board-row">
-      {renderSquare(0)}{renderSquare(1)}{renderSquare(2)}
+      {renderSquare(0, 'zero')}{renderSquare(1, 'one')}{renderSquare(2, 'two')}
       </div><div className="board-row">
-      {renderSquare(3)}{renderSquare(4)}{renderSquare(5)}
+      {renderSquare(3, 'three')}{renderSquare(4, 'four')}{renderSquare(5, 'five')}
       </div><div className="board-row">
-      {renderSquare(6)}{renderSquare(7)}{renderSquare(8)}
+      {renderSquare(6, 'six')}{renderSquare(7, 'seven')}{renderSquare(8, 'eight')}
       </div>
     </div>
   )
@@ -108,6 +123,7 @@ const Game = () => {
       <br />❌ 🆚 ⭕ 
       <Board />
       <br />
+      
       <a className="reText" href="./index.js">Reload 🌝</a>
     </div>
   )
@@ -132,10 +148,39 @@ function calculateWinner(squares)
       winningLine[0] = a
       winningLine[1] = b
       winningLine[2] = c
-      console.log(winningLine)
+      markWinningLine(winningLine, squares[a])
       return squares[a] //'X' or 'O';
     }
     
   }
   return null;
 }
+
+const markWinningLine = (winPath, winnerOne) => {
+  const [cell1, cell2, cell3] = winPath
+  const toWords = new ToWords();
+  let cellId1 = toWords.convert(cell1).toLowerCase()
+  let cellId2 =  toWords.convert(cell2).toLowerCase()
+  let cellId3 =  toWords.convert(cell3).toLowerCase()
+
+  let x = document.getElementById(cellId1)
+  let y = document.getElementById(cellId2)
+  let z = document.getElementById(cellId3)
+  
+  if(winnerOne === 'X')
+  {
+
+    x.style.backgroundColor = 'green'
+    y.style.backgroundColor = 'green'
+    z.style.backgroundColor = 'green'
+  
+  }
+  else{
+    x.style.backgroundColor = 'red'
+    y.style.backgroundColor = 'red'
+    z.style.backgroundColor = 'red'
+    
+  }
+  
+}
+
