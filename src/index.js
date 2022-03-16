@@ -5,7 +5,11 @@ import './App.css'
 import { ToastDemo } from './ToastDemo';
 import {ToWords} from 'to-words'
 var clicksCounter = 0;
-
+const lines = [
+  [0, 1, 2], [3, 4, 5], [6, 7, 8], //rows
+  [0, 3, 6], [1, 4, 7], [2, 5, 8], //columns
+  [0, 4, 8], [2, 4, 6] //diagonals
+]
 const Square = (props) => {
   
   return(
@@ -57,16 +61,86 @@ const Board = () => {
   const aiTurn = (sq) => {
 
     const emptyCells = []
+    const filledCells = []
+    const osPlaces = []
+    const xsPlaces = []
+    
     for(let item = 0; item < 9; item++)
     {
       if(sq[item] == null)
       {
         emptyCells.push(item)
       }
+      else 
+      {
+        filledCells.push(item)
+        if(sq[item] === 'X')
+        {
+          xsPlaces.push(item)
+        }
+        else
+        {
+          osPlaces.push(item)
+        }
+      }
     }
+
+
     let randEmptyCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
-    //console.log(randEmptyCell)
+    
+    if(xsPlaces.length === 1)
+    {
+      return randEmptyCell
+    }
+    else
+    {
+      var desiredCell = 0
+      let lastX = xsPlaces[xsPlaces.length - 1]
+      let preLastX = xsPlaces[xsPlaces.length - 2]
+      let counter = 0
+      lines.forEach(line => {
+        counter++;
+        if(line.includes(lastX) && line.includes(preLastX))
+        {
+          if(counter >= 0 && counter <= 2) // its a row
+          {
+            console.log('in 1')
+              if(emptyCells.includes(lastX + 1))
+              desiredCell = lastX + 1
+              else if(emptyCells.includes(lastX - 1))
+              desiredCell = lastX - 1
+              else
+              desiredCell = randEmptyCell
+          }
+          else if(counter > 2 && counter <= 5) //its a column
+          {
+            console.log('in 2')
+            if(emptyCells.includes(lastX + 3))
+            desiredCell = lastX + 3
+            else if(emptyCells.includes(lastX - 3))
+            desiredCell = lastX - 3
+            else 
+            desiredCell = randEmptyCell
+          }
+          else //its a diag
+          {
+            console.log('in 3')
+            if(emptyCells.includes(lastX + 4))
+            desiredCell = lastX + 4
+            else if(emptyCells.includes(lastX - 4))
+            desiredCell = lastX - 4
+            else
+            desiredCell = randEmptyCell
+          }
+        }
+      });
+    }
+    randEmptyCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
+    if(desiredCell != null && emptyCells.includes(desiredCell))
+    return desiredCell
+    else
     return randEmptyCell
+  
   }
 
   const renderSquare = (i, k) => {
@@ -135,11 +209,7 @@ ReactDOM.render(<Game />, document.getElementById('root'))
 function calculateWinner(squares)
 {
   const winningLine = []
-  const lines = [
-    [0, 1, 2], [3, 4, 5], [6, 7, 8], //rows
-    [0, 3, 6], [1, 4, 7], [2, 5, 8], //columns
-    [0, 4, 8], [2, 4, 6] //diagonals
-  ]
+
   for(let line of lines)
   {
     const [a, b, c] = line
