@@ -1,3 +1,4 @@
+import React, { Component }  from 'react';
 import { useToasts } from 'react-toast-notifications'
 
 export const ToastDemo = () => {
