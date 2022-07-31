@@ -223,8 +223,8 @@ const App2 = () => (
   <Router>
    
     <Routes>
-      <Route exact path="/" element={<Game/>} />
-      <Route path="*" element={<NotFound/>} />
+      <Route exact path="/tac-tac-toe" element={<Game/>} />
+      <Route path="tac-tac-toe/*" element={<NotFound/>} />
     </Routes>
   
   </Router>
