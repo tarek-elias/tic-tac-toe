@@ -9,6 +9,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
 
 var clicksCounter = 0;
+
+
 const lines = [
   [0, 1, 2], [3, 4, 5], [6, 7, 8], //rows
   [0, 3, 6], [1, 4, 7], [2, 5, 8], //columns
@@ -63,7 +65,7 @@ const Board = () => {
   }
 
   const aiTurn = (sq) => {
-
+  
     const emptyCells = []
     const filledCells = []
     const osPlaces = []
@@ -87,7 +89,9 @@ const Board = () => {
           osPlaces.push(item)
         }
       }
-    }
+    
+
+  }
 
 
     let randEmptyCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
@@ -156,14 +160,11 @@ const Board = () => {
     )
   }
   const winner = calculateWinner(squares)
-  /*var status = winner ? 
-  `Winner: ${winner} 😎` :
-  `Your turn: ${xIsNext ? 'X' : 'O'}`*/
   var status = '';
   if(winner)
   {
-    status= `Winner: ${winner} 😎`
-    
+
+    status = `Winner: ${winner} 😎`     
   }
   else
   {
@@ -174,8 +175,7 @@ const Board = () => {
   
   if(clicksCounter === 5 && !winner)
   {
-    status = `Draw 🤝`
-    
+    status = `Draw 🤝` 
   }
 
   return(
@@ -235,6 +235,7 @@ ReactDOM.render(<App2 />, document.getElementById('root'))
 
 function calculateWinner(squares)
 {
+  
   const winningLine = []
 
   for(let line of lines)
@@ -247,6 +248,7 @@ function calculateWinner(squares)
       winningLine[2] = c
       markWinningLine(winningLine, squares[a])
       return squares[a] //'X' or 'O';
+    
     }
     
   }
