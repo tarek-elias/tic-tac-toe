@@ -4,6 +4,10 @@ import { ToastProvider } from 'react-toast-notifications';
 import './App.css'
 import { ToastDemo } from './ToastDemo';
 import {ToWords} from 'to-words'
+
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+
+
 var clicksCounter = 0;
 const lines = [
   [0, 1, 2], [3, 4, 5], [6, 7, 8], //rows
@@ -203,7 +207,30 @@ const Game = () => {
   )
 }
 
-ReactDOM.render(<Game />, document.getElementById('root'))
+const NotFound = ()=>{
+  return(
+    <div className="game">
+    Tic-Tac-Toe <div className="tarek"><ToastProvider><ToastDemo /></ToastProvider></div>
+    <br />❌ 🆚 ⭕ 
+    <h3>We couldn't find the page you're requesting 😕</h3>  
+    <br />
+    
+  </div>
+  )
+}
+
+const App2 = () => (
+  <Router>
+   
+    <Routes>
+      <Route exact path="/tic-tac-toe" element={<Game/>} />
+      <Route path="*" element={<NotFound/>} />
+    </Routes>
+  
+  </Router>
+);
+
+ReactDOM.render(<App2 />, document.getElementById('root'))
 
 
 function calculateWinner(squares)
