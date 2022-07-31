@@ -198,7 +198,7 @@ const Game = () => {
       <Board />
       <br />
       
-      <a className="reText" href="/">Reload 🌝</a>
+      <a className="reText" href="/tic-tac-toe">Reload 🌝</a>
     </div>
   )
 }
