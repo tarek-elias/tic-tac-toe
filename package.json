@@ -51,7 +51,7 @@
   "bugs": {
     "url": "https://github.com/tarek-elias/Tic-Tac-Toe/issues"
   },
-  "homepage": "https://tarek-elias.github.io/tic-tac-toe/",
+  "homepage": "https://tarek-elias.github.io/tic-tac-toe/public/index.html",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"}
