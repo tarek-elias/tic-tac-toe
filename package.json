@@ -16,6 +16,10 @@
     "web-vitals": "^1.1.1"
   },
   "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
@@ -49,8 +53,5 @@
   "bugs": {
     "url": "https://github.com/tarek-elias/Tic-Tac-Toe/issues"
   },
-  "homepage": "https://tarek-elias.github.io/tic-tac-toe/public/index.html",
-  "devDependencies": {
-    "gh-pages": "^4.0.0"
-  }
+  "homepage": "https://tarek-elias.github.io/tic-tac-toe"
 }
